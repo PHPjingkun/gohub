@@ -59,6 +59,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		{
 			usersGroup.GET("", uc.Index)
 		}
+
 		cgc := new(controllers.CategoriesController)
 		cgcGroup := v1.Group("/categories")
 		{
@@ -66,6 +67,12 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			cgcGroup.POST("", middlewares.AuthJWT(), cgc.Store)
 			cgcGroup.PUT("/:id", middlewares.AuthJWT(), cgc.Update)
 			cgcGroup.DELETE("/:id", middlewares.AuthJWT(), cgc.Delete)
+		}
+
+		tpc := new(controllers.TopicsController)
+		tpcGroup := v1.Group("/topics")
+		{
+			tpcGroup.POST("", middlewares.AuthJWT(), tpc.Store)
 		}
 	}
 }
